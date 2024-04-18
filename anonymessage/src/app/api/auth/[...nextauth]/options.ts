@@ -37,11 +37,34 @@ export  const authOptions:NextAuthOptions={
                 } catch (err:any) {
                     throw new Error(err)
                 }
-                const res = await fetch("/your/endpoint", {
-                  method: 'POST',
-                  body: JSON.stringify(credentials),
-                  headers: { "Content-Type": "application/json" }
-                })
+            }
         })
-    ]
+    ],
+    callbacks:{
+        async jwt({ token, user }) {
+            if (user){
+                token._id=user.id.toString()
+                token.isVerified=user.isVerified
+                token.isAcceptingMessages=user.isAcceptingMessages
+                token.username=user.username
+            }
+            return token
+        },
+        async session({ session, token }) {
+            if(token){
+                session.user._id=token._id
+                session.user.isVerified=token.isVerified
+                session.user.isAcceptingMessages=token.isAcceptingMessages
+                session.user.username=token.username
+            }
+            return session
+          }
+    },
+    pages:{
+        signIn:"/sign-in"
+    },
+    session:{
+        strategy:"jwt"
+    },
+    secret:process.env.NEXTAUTH_SECRET
 }
