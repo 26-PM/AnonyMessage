@@ -4,6 +4,7 @@ import bcrypt from "bcryptjs";
 import dbConnect from "@/lib/dbConnect";
 import UserModel from "@/model/User";
 
+
 export  const authOptions:NextAuthOptions={
     providers:[
         CredentialsProvider({
@@ -43,21 +44,22 @@ export  const authOptions:NextAuthOptions={
     callbacks:{
         async jwt({ token, user }) {
             if (user){
-                token._id=user.id.toString()
+                token._id=user._id?.toString()
                 token.isVerified=user.isVerified
                 token.isAcceptingMessages=user.isAcceptingMessages
                 token.username=user.username
             }
             return token
         },
-        async session({ session, token }) {
-            if(token){
-                session.user._id=token._id
-                session.user.isVerified=token.isVerified
-                session.user.isAcceptingMessages=token.isAcceptingMessages
-                session.user.username=token.username
+        //todo : session isnt working
+        async session({ session, token }: { session: any, token: any }) { // Use the augmented NextAuthSession type
+            if (token) {
+              session.user._id = token._id;
+              session.user.isVerified = token.isVerified;
+              session.user.isAcceptingMessages = token.isAcceptingMessages;
+              session.user.username = token.username;
             }
-            return session
+            return session;
           }
     },
     pages:{
@@ -66,5 +68,5 @@ export  const authOptions:NextAuthOptions={
     session:{
         strategy:"jwt"
     },
-    secret:process.env.NEXTAUTH_SECRET
+    secret:process.env.NEXTAUTH_SECRET,
 }
