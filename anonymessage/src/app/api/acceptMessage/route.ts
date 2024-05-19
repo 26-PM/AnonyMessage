@@ -1,4 +1,4 @@
-import {getServerSession} from "next-auth"
+    import {getServerSession} from "next-auth"
 import { authOptions } from "../auth/[...nextauth]/options"
 import dbConnect from "@/lib/dbConnect"
 import UserModel from "@/model/User"
@@ -20,12 +20,12 @@ export async function POST(request:Request){
         )   
     }
     const userId=user._id;
-    const {acceptMessages}=await request.json()
+    const {acceptMessage}=await request.json()
 
     try {
         const updatedUser = await UserModel.findByIdAndUpdate(
             userId,
-            {isAcceptingMessage: acceptMessages},
+            {isAcceptingMessage: acceptMessage},
             {
                 new:true
             }

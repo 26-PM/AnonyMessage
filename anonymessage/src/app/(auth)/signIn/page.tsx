@@ -19,7 +19,7 @@ import { signIn } from "next-auth/react"
 
 
 const page = () => { 
-  const [isSubmitting, setisSubmitting] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
   // shadcn
   const { toast } = useToast()
