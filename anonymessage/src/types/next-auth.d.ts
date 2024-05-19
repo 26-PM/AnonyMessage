@@ -1,4 +1,4 @@
-import "next-auth"
+        import "next-auth"
 
 declare module "next-auth"{
     interface User{
@@ -8,10 +8,12 @@ declare module "next-auth"{
         username?:string;
     }
     interface Session{
-        _id?:string;
-        isVerified?:boolean;
-        isAcceptingMessages?:boolean;
-        username?:string;       
+        user:{
+            _id?:string;
+            isVerified?:boolean;
+            isAcceptingMessages?:boolean;
+            username?:string; 
+        }& DefaultSession['user']
     }
 }
 
@@ -23,3 +25,6 @@ declare module "next-auth/jwt"{
         username?:string;   
     }
 }
+
+git config --global user.email "prafulcoc1@gmail.com"
+git config --global user.name "26-pm"

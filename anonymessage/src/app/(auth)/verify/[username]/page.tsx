@@ -31,7 +31,7 @@ const verifyAccount = () => {
               title:"Success",
               description:response.data.message
             }) 
-            router.replace(`/verify/pm`)
+            router.replace(`/dashboard`)
         } catch (error) {
           console.error("Error in signup of user.", error);
           const axiosError = error as AxiosError<ApiResponse>;

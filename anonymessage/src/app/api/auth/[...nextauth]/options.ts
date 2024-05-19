@@ -14,7 +14,7 @@ export  const authOptions:NextAuthOptions={
                 email: { label: "Email", type: "text"},
                 password: { label: "Password", type: "password" }
               },
-              async authorize(credentials:any, req):Promise<any> {
+              async authorize(credentials:any):Promise<any> {
                 await dbConnect()
                 try {
                     const user = await UserModel.findOne({
@@ -41,6 +41,9 @@ export  const authOptions:NextAuthOptions={
             }
         })
     ],
+    pages:{
+        signIn:"/signIn"
+    },
     callbacks:{
         async jwt({ token, user }) {
             if (user){
@@ -61,10 +64,7 @@ export  const authOptions:NextAuthOptions={
             }
             return session;
           }
-    },
-    pages:{
-        signIn:"/sign-in"
-    },
+    },      
     session:{
         strategy:"jwt"
     },
