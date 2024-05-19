@@ -25,6 +25,3 @@ declare module "next-auth/jwt"{
         username?:string;   
     }
 }
-
-git config --global user.email "prafulcoc1@gmail.com"
-git config --global user.name "26-pm"
